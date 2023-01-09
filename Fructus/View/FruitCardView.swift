@@ -12,9 +12,10 @@ struct FruitCardView: View {
     var fruit: Fruit
     
     @State private var isAnimating: Bool = false
+    @Binding var isOnboarding: Bool
     //MARK: BODY
     var body: some View {
-        ZStack {
+        HStack {
             VStack(spacing: 20) {
                 //image
                 Image(fruit.image)
@@ -35,12 +36,15 @@ struct FruitCardView: View {
                     .padding(.horizontal, 16)
                     .frame(maxWidth: 480)
                 //startButton
-                StartButtonView()
+                StartButtonView(isOnboarding: $isOnboarding)
             }
         }
-        .onAppear{
-            withAnimation(.easeOut(duration: 0.5)){
-                isAnimating = true
+        .onAppear {
+            DispatchQueue.main.async {
+                isAnimating = false
+                withAnimation(.easeOut(duration: 0.5)){
+                    isAnimating = true
+                }
             }
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
@@ -52,8 +56,9 @@ struct FruitCardView: View {
 }
 //MARK: PREVIEW
 struct FruitCardView_Previews: PreviewProvider {
+    @State static var isOnboarding: Bool = true
     static var previews: some View {
-        FruitCardView(fruit: fruitsData[4])
+        FruitCardView(fruit: fruitsData[4], isOnboarding: $isOnboarding)
             .previewLayout(.fixed(width: 320, height: 640))
     }
 }

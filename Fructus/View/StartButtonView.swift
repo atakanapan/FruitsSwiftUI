@@ -9,13 +9,15 @@ import SwiftUI
 
 struct StartButtonView: View {
     //MARK: PROPERITIES
-    @AppStorage("isOnboarding") var isOnboarding: Bool?
+    @Binding var isOnboarding: Bool
     
     //MARK: BODY
     
     var body: some View {
         Button(action: {
-            isOnboarding = false
+            withAnimation(.easeOut(duration: 1)){
+                isOnboarding = false
+            }
         }) {
             HStack(spacing: 8) {
                 Text("Start")
@@ -33,8 +35,9 @@ struct StartButtonView: View {
 }
 //MARK: PREVIEW
 struct StartButtonView_Previews: PreviewProvider {
+    @State static var isOnboarding: Bool = true
     static var previews: some View {
-        StartButtonView()
+        StartButtonView(isOnboarding: $isOnboarding)
             .previewLayout(.sizeThatFits)
     }
 }
