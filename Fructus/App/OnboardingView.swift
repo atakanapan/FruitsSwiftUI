@@ -11,13 +11,12 @@ import SwiftUI
 struct OnboardingView: View {
     //MARK: PROPERTIES
     var fruits: [Fruit] = fruitsData
-    @Binding var isOnboarding: Bool
     
     //MARK: BODY
     var body: some View {
         TabView{
             ForEach(fruits[0..<5]) {item in
-                FruitCardView(fruit: item, isOnboarding: $isOnboarding)
+                FruitCardView(fruit: item)
             }
         }
         .tabViewStyle(PageTabViewStyle())
@@ -28,6 +27,6 @@ struct OnboardingView: View {
 struct OnboardingView_Previews: PreviewProvider {
     @State static var isOnboarding: Bool = true
     static var previews: some View {
-        OnboardingView(isOnboarding: $isOnboarding)
+        OnboardingView()
     }
 }

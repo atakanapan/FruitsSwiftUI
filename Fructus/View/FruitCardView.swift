@@ -10,9 +10,8 @@ import SwiftUI
 struct FruitCardView: View {
     //MARK: PROPERTIES
     var fruit: Fruit
-    
     @State private var isAnimating: Bool = false
-    @Binding var isOnboarding: Bool
+    
     //MARK: BODY
     var body: some View {
         HStack {
@@ -36,7 +35,7 @@ struct FruitCardView: View {
                     .padding(.horizontal, 16)
                     .frame(maxWidth: 480)
                 //startButton
-                StartButtonView(isOnboarding: $isOnboarding)
+                StartButtonView()
             }
         }
         .onAppear {
@@ -58,7 +57,7 @@ struct FruitCardView: View {
 struct FruitCardView_Previews: PreviewProvider {
     @State static var isOnboarding: Bool = true
     static var previews: some View {
-        FruitCardView(fruit: fruitsData[4], isOnboarding: $isOnboarding)
+        FruitCardView(fruit: fruitsData[4])
             .previewLayout(.fixed(width: 320, height: 640))
     }
 }
